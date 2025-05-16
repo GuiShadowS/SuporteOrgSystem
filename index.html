@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajuda - Sistema ORGSYSTEM</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    nav {
+      width: 200px;
+      height: 100vh;
+      background-color: #333;
+      padding-top: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      transition: left 0.3s;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      margin-bottom: 10px;
+    }
+
+    nav ul li a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    nav ul li a:hover {
+      background-color: #555;
+    }
+
+    nav ul li a.ativo {
+      background-color: #007BFF;
+    }
+
+    .submenu {
+      display: none;
+      list-style: none;
+      padding-left: 20px;
+      background-color: #444;
+    }
+
+    .submenu li a {
+      font-weight: normal;
+      padding: 10px 16px;
+    }
+
+    .menu-toggle::after {
+      content: " ▼";
+      font-size: 10px;
+    }
+
+    .menu-toggle.ativo::after {
+      content: " ▲";
+    }
+
+    .conteudo {
+      margin-left: 220px;
+      padding: 20px;
+    }
+
+    .secao {
+      display: none;
+    }
+
+    .secao.ativa {
+      display: block;
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    /* Responsivo para telas menores */
+    @media (max-width: 768px) {
+      nav {
+        left: -220px;
+        z-index: 999;
+      }
+
+      nav.ativo {
+        left: 0;
+      }
+
+      .menu-btn {
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background-color: #333;
+        color: white;
+        padding: 10px 15px;
+        font-size: 18px;
+        z-index: 1000;
+        border: none;
+        cursor: pointer;
+      }
+
+      .conteudo {
+        margin-left: 0;
+        padding-top: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botão menu mobile -->
+  <button class="menu-btn" onclick="toggleMenu()">☰ MENU</button>
+
+  <!-- Menu lateral -->
+  <nav id="menuLateral">
+    <ul>
+      <li><a onclick="mostrarSecao('inicio')" class="ativo">INICIO</a></li>
+      <li>
+        <a class="menu-toggle">ASSISTENCIA SOCIAL</a>
+        <ul class="submenu">
+          <li><a onclick="mostrarSecao('abrirNota')">EM DESENVOLVIMENTO</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="menu-toggle">ATIVO IMOBILIZADO</a>
+        <ul class="submenu">
+          <li><a onclick="mostrarSecao('pagina2')">EM DESENVOLVIMENTO</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="menu-toggle">COMPRAS</a>
+        <ul class="submenu">
+          <li><a onclick="mostrarSecao('pagina2')">EM DESENVOLVIMENTO</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="menu-toggle">CONTABILIDADE</a>
+        <ul class="submenu">
+          <li><a onclick="mostrarSecao('pagina2')">EM DESENVOLVIMENTO</a></li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <div class="conteudo">
+    <div id="inicio" class="secao ativa">
+      <h1>Bem vindo ao arquivo de ajuda do sistema ORGSYSTEM</h1>
+      <p><b>Aqui você irá encontrar explicações de como usar o sistema, navegando pela aba lateral.</b></p>
+    </div>
+
+    <div id="abrirNota" class="secao">
+      <h1>EM DESENVOLVIMENTO</h1>
+      <p>Aqui você podera ver um passo a passo.</p>
+    </div>
+
+    <div id="pagina2" class="secao">
+      <h1>EM DESENVOLVIMENTO</h1>
+      <p>Aqui você podera ver um passo a passo.</p>
+    </div>
+  </div>
+
+  <script>
+    function mostrarSecao(id) {
+      // Esconde todas as seções
+      document.querySelectorAll('.secao').forEach(secao => {
+        secao.classList.remove('ativa');
+      });
+
+      // Mostra a seção selecionada
+      document.getElementById(id).classList.add('ativa');
+
+      // Atualiza o destaque do menu
+      document.querySelectorAll('nav ul li a').forEach(link => {
+        link.classList.remove('ativo');
+      });
+      event.target.classList.add('ativo');
+
+      // Fecha menu no mobile
+      if (window.innerWidth <= 768) {
+        document.getElementById('menuLateral').classList.remove('ativo');
+      }
+    }
+
+    function toggleMenu() {
+      document.getElementById('menuLateral').classList.toggle('ativo');
+    }
+
+    document.querySelectorAll('.menu-toggle').forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.classList.toggle('ativo');
+        const submenu = this.nextElementSibling;
+        submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+      });
+    });
+  </script>
+
+</body>
+</html>
